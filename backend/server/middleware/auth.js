@@ -6,7 +6,7 @@ const auth = async (req, res, next) => {
     if (!user) {
       return res.status(400).json({ message: info.message });
     }
-    req.login(user, (error) => {
+    req.logIn(user, (error) => {
       if (error) return next(error);
       return res.json({ user });
     });

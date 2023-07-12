@@ -5,15 +5,11 @@ import User from "../models/user.js";
 passport.use("local", localStrategy);
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  await User.findById(id, function (err, user) {
-    done(err, user);
-  });
+  await User.findById(id, (error, user) => done(error, user));
 });
 
 export default passport;
-
-// passport.use("local", localStrategy);

@@ -7,11 +7,13 @@ import bodyParser from "body-parser";
 import connectMongoDBSession from "connect-mongodb-session";
 
 import { connectDb } from "./server/config/db.js";
-import productsRoutes from "./server/routes/productsRoutes.js";
+
+// ROUTES
+import products from "./server/routes/products.js";
 import auth from "./server/routes/auth.js";
+import users from "./server/routes/users.js";
 
 connectDb();
-
 dotenv.config();
 
 const app = express();
@@ -29,9 +31,8 @@ var sessionStore = new MongoDBStore({
   collection: "sessions",
 });
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-// app.use(express.static());
 // Setup session
 app.use(
   session({
@@ -41,10 +42,12 @@ app.use(
     store: sessionStore,
   })
 );
+// app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate("session"));
 
-app.use("/products", productsRoutes);
+app.use("/products", products);
 app.use("/auth", auth);
+app.use("/users", users);
 
 app.listen(port, () => console.log(`Server running on PORT: ${port}`));
