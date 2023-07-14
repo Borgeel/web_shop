@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import connectMongoDBSession from "connect-mongodb-session";
 
 import { connectDb } from "./server/config/db.js";
+import initializePassport from "./server/config/passport.js";
 
 // ROUTES
 import products from "./server/routes/products.js";
@@ -15,6 +16,7 @@ import users from "./server/routes/users.js";
 
 connectDb();
 dotenv.config();
+initializePassport(passport);
 
 const app = express();
 
@@ -30,8 +32,6 @@ var sessionStore = new MongoDBStore({
   uri: process.env.MONGO_URI,
   collection: "sessions",
 });
-
-// app.use(passport.initialize());
 
 // Setup session
 app.use(

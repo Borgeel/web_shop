@@ -1,13 +1,13 @@
 import Input from "./Input";
 
-const RegistrationForm = ({ changeHandler }) => {
+const RegistrationForm = ({ changeHandler, submitHandler }) => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full px-6 py-8 bg-white shadow-md overflow-hidden sm:max-w-lg">
         <h2 className="text-4xl font-bold text-center mb-8">
           Registration Form
         </h2>
-        <form>
+        <form onSubmit={submitHandler}>
           <div className="mb-6">
             <Input
               name="username"

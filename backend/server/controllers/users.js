@@ -25,6 +25,14 @@ export const getUsers = async (req, res) => {
   }
 };
 
-export const registerUser = async (req, res) => {};
+export const registerUser = async (req, res) => {
+  const { username, password, email } = req.body;
 
-// uvm, enisa upcming app, rtnr 802 847 8899 req lang, 802 847 6939
+  const newUser = await User.create({
+    username: username,
+    password: password,
+    email: email,
+  });
+
+  res.status(200).json({ user: newUser });
+};
