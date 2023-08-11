@@ -1,6 +1,6 @@
 import Input from "./Input";
 
-const LoginForm = ({ changeHandler, submitHandler }) => {
+const LoginForm = ({ changeHandler, submitHandler, history }) => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full px-6 py-8 bg-white shadow-md overflow-hidden sm:max-w-lg">
