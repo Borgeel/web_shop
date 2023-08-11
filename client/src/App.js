@@ -63,10 +63,6 @@ function App() {
 
   return (
     <>
-      {/* <RegistrationForm
-        changeHandler={changeHandler}
-        submitHandler={submitHandler}
-      /> */}
       <Routes>
         <Route
           path="/login"
@@ -77,7 +73,19 @@ function App() {
             />
           }
         />
-        <Route path="/products" element={<ProductList products={products} />} />
+        <Route
+          path="/register"
+          element={
+            <RegistrationForm
+              changeHandler={changeHandler}
+              submitHandler={submitHandler}
+            />
+          }
+        />
+        <Route
+          path="/products"
+          element={<ProductList products={products} url={URL} />}
+        />
       </Routes>
     </>
   );
