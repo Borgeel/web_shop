@@ -16,18 +16,17 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e, path) => {
     e.preventDefault();
 
     try {
-      console.log("From fetch", { formData });
-
       const settings = {
         method: "POST",
         headers: { "Content-Type": "Application/json" },
         body: JSON.stringify(formData),
       };
-      const res = await fetch(`${URL}/users/register`, settings);
+
+      const res = await fetch(`${URL}/users/${path}`, settings);
       const data = await res.json();
 
       console.log(data);
@@ -38,10 +37,11 @@ function App() {
 
   return (
     <>
-      <RegistrationForm
+      {/* <RegistrationForm
         changeHandler={changeHandler}
         submitHandler={submitHandler}
-      />
+      /> */}
+      <LoginForm changeHandler={changeHandler} submitHandler={submitHandler} />
     </>
   );
 }

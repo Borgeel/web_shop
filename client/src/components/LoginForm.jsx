@@ -1,27 +1,31 @@
-const LoginForm = () => {
+import Input from "./Input";
+
+const LoginForm = ({ changeHandler, submitHandler }) => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full px-6 py-8 bg-white shadow-md overflow-hidden sm:max-w-lg">
         <h2 className="text-4xl font-bold text-center mb-8">Login</h2>
-        <form>
+        <form onSubmit={(e) => submitHandler(e, "login")}>
           <div className="mb-6">
-            <label className="block mb-2 font-bold text-gray-700">
-              Username or email:
-            </label>
-            <input
-              className="w-full p-2 border border-gray-300 rounded-md"
+            <Input
+              name="username"
               type="text"
-              placeholder="Enter your name or email"
+              labelClass="block mb-2 font-bold text-gray-700"
+              labelText="Name:"
+              inputClass="w-full p-2 border border-gray-300 rounded-md"
+              placeHolder="Enter your name"
+              changeHandler={changeHandler}
             />
           </div>
           <div className="mb-6">
-            <label className="block mb-2 font-bold text-gray-700">
-              Password:
-            </label>
-            <input
-              className="w-full p-2 border border-gray-300 rounded-md"
+            <Input
+              name="password"
               type="password"
-              placeholder="Enter your password"
+              labelClass="block mb-2 font-bold text-gray-700"
+              labelText="Password:"
+              inputClass="w-full p-2 border border-gray-300 rounded-md"
+              placeHolder="Enter your password"
+              changeHandler={changeHandler}
             />
           </div>
           <div className="flex justify-center">

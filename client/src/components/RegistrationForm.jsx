@@ -7,7 +7,7 @@ const RegistrationForm = ({ changeHandler, submitHandler }) => {
         <h2 className="text-4xl font-bold text-center mb-8">
           Registration Form
         </h2>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={(e) => submitHandler(e, "register")}>
           <div className="mb-6">
             <Input
               name="username"

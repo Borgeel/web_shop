@@ -1,22 +1,20 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import passport from "passport";
-import session from "express-session";
 import bodyParser from "body-parser";
-import connectMongoDBSession from "connect-mongodb-session";
 
 import { connectDb } from "./server/config/db.js";
-import initializePassport from "./server/config/passport.js";
+
+// MIDDLEWARE
 
 // ROUTES
 import products from "./server/routes/products.js";
-import auth from "./server/routes/auth.js";
 import users from "./server/routes/users.js";
 
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 connectDb();
-dotenv.config();
-initializePassport(passport);
 
 const app = express();
 
@@ -26,28 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-const MongoDBStore = connectMongoDBSession(session);
-
-var sessionStore = new MongoDBStore({
-  uri: process.env.MONGO_URI,
-  collection: "sessions",
-});
-
-// Setup session
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: sessionStore,
-  })
-);
-// app.use(passport.initialize());
-app.use(passport.session());
-app.use(passport.authenticate("session"));
-
 app.use("/products", products);
-app.use("/auth", auth);
 app.use("/users", users);
 
 app.listen(port, () => console.log(`Server running on PORT: ${port}`));
