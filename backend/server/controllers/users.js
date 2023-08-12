@@ -1,13 +1,13 @@
 import User from "../models/user.js";
-import bcrypt, { compareSync } from "bcrypt";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { secretOrKey } from "../config/keys.js";
 
-export const register = async (req, res) => {
-  const { username, password, email } = req.body;
+export const singup = async (req, res) => {
+  const { username, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ username } || { email });
+    const existingUser = await User.findOne({ username });
     if (existingUser)
       return res
         .status(400)
@@ -15,7 +15,7 @@ export const register = async (req, res) => {
 
     const hash = await bcrypt.hash(password, 12);
 
-    const user = await new User({ username, password: hash, email });
+    const user = await new User({ username, password: hash });
     await user.save();
 
     res.json({ success: true, message: "User registered" });
@@ -39,10 +39,18 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, existingUser.password);
 
     if (isMatch) {
-      const token = jwt.sign({ id: existingUser._id }, secretOrKey, {
-        expiresIn: "1h",
+      const token = jwt.sign(
+        { id: existingUser._id, username: existingUser.username },
+        secretOrKey,
+        {
+          expiresIn: "1h",
+        }
+      );
+      return res.json({
+        success: true,
+        user: existingUser,
+        token: `Bearer ${token}`,
       });
-      return res.json({ success: true, token });
     } else {
       return res
         .status(401)

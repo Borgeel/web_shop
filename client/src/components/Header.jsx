@@ -7,9 +7,9 @@ const Header = ({ user }) => {
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-lg font-semibold">Web Shop</h1>
         {user ? (
-          <div>Welcome, {user?.username}!</div>
+          <div>{user?.username}!</div>
         ) : (
-          <Link to="/login" className="underline">
+          <Link to="/auth" className="underline">
             Login
           </Link>
         )}

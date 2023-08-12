@@ -1,7 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { useFetch } from "../utils/useFetch";
-import { products } from "./List";
-
 import Product from "./Product";
 
 const ProductList = ({ products }) => {

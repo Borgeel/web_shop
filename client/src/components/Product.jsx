@@ -1,5 +1,3 @@
-import React from "react";
-
 const Product = ({ product: { name, price, image } }) => {
   return (
     <div className="bg-white p-4 rounded shadow-md w-64">
