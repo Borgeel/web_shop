@@ -1,13 +1,14 @@
 import React, { createContext, useState } from "react";
+import { getUser } from "../utils/auth";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(localStorage.getItem("user"));
+  const [user, setUser] = useState();
+
+  setUser(getUser());
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
   );
 };

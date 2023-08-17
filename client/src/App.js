@@ -1,15 +1,11 @@
-import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import DataContext, { DataProvider } from "./contexts/DataContext";
 
 // Components
-import { Footer, Header, ProductList } from "./components";
 import Auth from "./components/Auth";
-
-const initialState = {
-  username: "",
-  email: "",
-  password: "",
-};
+import { Home } from "./pages";
+import { useEffect } from "react";
+import { getUser } from "./utils/auth";
 
 const products = [
   {
@@ -28,28 +24,26 @@ const products = [
     price: "200",
   },
 ];
+export const URL = "http://localhost:5000";
 
 function App() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState(initialState);
+  const user = getUser();
 
-  const user = localStorage.getItem("token");
-
-  console.log(user);
-
-  const URL = "http://localhost:5000";
+  useEffect(() => {
+    if (!user) {
+      navigate("/auth");
+    }
+  }, [user]);
 
   return (
     <>
-      <Header user={user} />
-      <Routes>
-        <Route path="/auth" element={<Auth URL={URL} />} />
-        <Route
-          path="/products"
-          element={<ProductList products={products} url={URL} />}
-        />
-      </Routes>
-      <Footer />
+      <DataProvider>
+        <Routes>
+          <Route path="/*" element={<Home products={products} user={user} />} />
+          <Route path="/auth" element={<Auth URL={URL} />} />
+        </Routes>
+      </DataProvider>
     </>
   );
 }

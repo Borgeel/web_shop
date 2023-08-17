@@ -1,18 +1,21 @@
-import React, { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
+import React, { useEffect } from "react";
 import ProductList from "../components/ProductList";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { useAuth } from "../contexts/DataContext";
+import { useNavigate } from "react-router";
 
-const Home = () => {
-  const { user } = useContext(UserContext);
-
+const Home = ({ user }) => {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
+      <Header user={user} />
       <h2 className="text-xl font-semibold mb-4">Welcome to Web Shop!</h2>
       {user ? (
         <ProductList />
       ) : (
         <p>Please login or register to view products.</p>
       )}
+      <Footer />
     </div>
   );
 };

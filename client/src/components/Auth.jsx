@@ -8,18 +8,12 @@ const initialState = {
 };
 
 const Auth = ({ URL }) => {
-  const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const navigate = useNavigate();
 
-  const changeHandler = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const submitHandler = async (e, path) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-
-    console.log(formData);
 
     try {
       const settings = {
@@ -35,13 +29,17 @@ const Auth = ({ URL }) => {
 
       if (data.success) {
         localStorage.setItem("token", data.token);
-        navigate("/products");
+
+        navigate("/");
       }
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
     console.log("Submitting", isSignUp ? "Signup" : "Login", "form");
+  };
+
+  const changeHandler = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
