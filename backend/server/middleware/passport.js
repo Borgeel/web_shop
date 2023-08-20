@@ -5,7 +5,7 @@ import User from "../models/user.js";
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey,
+  secretOrKey: secretOrKey,
 };
 
 const strategy = new JwtStrategy(jwtOptions, async (payload, done) => {

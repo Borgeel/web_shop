@@ -1,8 +1,16 @@
 import jwt_decode from "jwt-decode";
 
 export const getToken = () => {
-  const user = localStorage.getItem("token");
-  return user;
+  return localStorage.getItem("token");
+};
+
+export const getAuthToken = () => {
+  const token = getToken();
+
+  return {
+    Authorization: token,
+    "Content-Type": "application/json",
+  };
 };
 
 export const getUser = () => {
