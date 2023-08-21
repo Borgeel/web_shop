@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Input from "./Input";
 import { useData } from "../contexts/DataContext";
-import { useFetch } from "../utils/useFetch";
 import { addProduct } from "../api";
 
 const initialState = {
@@ -15,7 +14,6 @@ const AddProduct = ({ onClose }) => {
   const { setProducts } = useData();
   const [formData, setFormData] = useState(initialState);
   const modalRef = useRef(null);
-  // const { reFetch } = useFetch()
 
   useEffect(() => {
     const clickOutsideHandler = (event) => {

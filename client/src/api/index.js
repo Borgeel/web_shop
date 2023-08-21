@@ -34,3 +34,12 @@ export const addProduct = async (formData) => {
     console.log(error);
   }
 };
+
+export const deleteProduct = async (id) => {
+  try {
+    const response = await request(`products/${id}`, "DELETE");
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

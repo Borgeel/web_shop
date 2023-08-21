@@ -7,8 +7,14 @@ export const useData = () => useContext(DataContext);
 export const DataProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 
+  const onDelete = (id) => {
+    const deleteProduct = products.filter((product) => product._id !== id);
+
+    setProducts(deleteProduct);
+  };
+
   return (
-    <DataContext.Provider value={{ products, setProducts }}>
+    <DataContext.Provider value={{ products, setProducts, onDelete }}>
       {children}
     </DataContext.Provider>
   );

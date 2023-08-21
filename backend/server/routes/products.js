@@ -11,6 +11,6 @@ const router = express.Router();
 
 router.get("/", getProducts);
 router.post("/", passport.authenticate("jwt", { session: false }), addProduct);
-router.delete(":id", deleteProduct);
+router.delete("/:id", deleteProduct);
 
 export default router;
