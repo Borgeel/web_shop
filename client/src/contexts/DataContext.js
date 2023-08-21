@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { useFetch } from "../utils/useFetch";
+import { createContext, useContext, useState } from "react";
 
 const DataContext = createContext({});
 
@@ -9,7 +8,7 @@ export const DataProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 
   return (
-    <DataContext.Provider value={{ URL, products, setProducts }}>
+    <DataContext.Provider value={{ products, setProducts }}>
       {children}
     </DataContext.Provider>
   );

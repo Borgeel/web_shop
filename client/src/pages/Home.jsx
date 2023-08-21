@@ -4,10 +4,11 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useFetch } from "../utils/useFetch";
 import { useData } from "../contexts/DataContext";
+import { API } from "../api";
 
 const Home = ({ user }) => {
-  const { URL, products, setProducts } = useData();
-  const { data, loading, error } = useFetch(`${URL}/products`);
+  const { products, setProducts } = useData();
+  const { data, loading, error } = useFetch(`${API}/products`);
 
   useEffect(() => {
     if (data) {

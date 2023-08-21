@@ -2,7 +2,7 @@ import { getAuthToken } from "../utils/auth";
 
 export const API = "http://localhost:5000";
 
-const request = async (url, method, body) => {
+export const request = async (url, method, body) => {
   const headers = {
     ...getAuthToken(),
     "Content-Type": "application/json",
@@ -10,8 +10,8 @@ const request = async (url, method, body) => {
 
   try {
     const response = await fetch(`${API}/${url}`, {
-      method,
       headers,
+      method,
       body: JSON.stringify(body),
     });
 
@@ -28,7 +28,7 @@ const request = async (url, method, body) => {
 
 export const addProduct = async (formData) => {
   try {
-    const response = await fetch("products", "POST", formData);
+    const response = await request("products", "POST", formData);
     return response;
   } catch (error) {
     console.log(error);

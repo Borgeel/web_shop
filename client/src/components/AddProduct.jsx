@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Input from "./Input";
 import { useData } from "../contexts/DataContext";
 import { useFetch } from "../utils/useFetch";
-import { getAuthToken } from "../utils/auth";
+import { addProduct } from "../api";
 
 const initialState = {
   name: "",
@@ -12,10 +12,10 @@ const initialState = {
 };
 
 const AddProduct = ({ onClose }) => {
-  const { URL, setProducts } = useData();
+  const { setProducts } = useData();
   const [formData, setFormData] = useState(initialState);
   const modalRef = useRef(null);
-  const { setLoading, setError, reFetch } = useFetch();
+  // const { reFetch } = useFetch()
 
   useEffect(() => {
     const clickOutsideHandler = (event) => {
@@ -33,41 +33,20 @@ const AddProduct = ({ onClose }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    await addProduct(formData);
-  };
-
-  const addProduct = async (formData) => {
-    setLoading(true);
-
-    const options = {
-      method: "POST",
-      headers: getAuthToken(),
-      body: JSON.stringify(formData),
-    };
-
     try {
-      const data = await fetch(`${URL}/products`, options);
-      const res = await data.json();
+      const data = await addProduct(formData);
 
-      if (res) {
-        setProducts((...prevState) => [...prevState, res]);
-        setFormData(initialState);
-        reFetch();
-        setLoading(false);
-        onClose();
-      }
+      setFormData(initialState);
+      setProducts((prevState) => [...prevState, data]);
+      onClose();
     } catch (error) {
       console.log(error);
-      setError(error);
     }
   };
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  // if (loading) return <p>Listing Product</p>;
-  // if (error) return <p> {error.message} </p>;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
