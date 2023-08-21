@@ -1,4 +1,4 @@
-const Product = ({ product: { name, price, image } }) => {
+const Product = ({ product: { name, price, image, id } }) => {
   return (
     <div className="bg-white p-4 rounded shadow-md w-64">
       <div className="w-full h-48 mb-2 overflow-hidden">

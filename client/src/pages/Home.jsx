@@ -7,7 +7,6 @@ import { useData } from "../contexts/DataContext";
 
 const Home = ({ user }) => {
   const { URL, products, setProducts } = useData();
-  // const { data } = useFetch(`${URL}/products`);
   const { data, loading, error } = useFetch(`${URL}/products`);
 
   useEffect(() => {
