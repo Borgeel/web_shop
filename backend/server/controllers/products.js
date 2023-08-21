@@ -31,3 +31,15 @@ export const addProduct = async (req, res) => {
     res.status(409).json({ success: false, message: error });
   }
 };
+
+export const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.findOne(id);
+
+    await product.delete();
+  } catch (error) {
+    res.status(500).json({ success: false, message: error });
+  }
+};
