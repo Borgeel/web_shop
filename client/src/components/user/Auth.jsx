@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "./Input";
+import Input from "../common/Input";
+import { useAuth } from "../../hooks/useAuth";
 
 const initialState = {
   username: "",
@@ -11,6 +12,7 @@ const Auth = ({ URL }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -26,16 +28,13 @@ const Auth = ({ URL }) => {
         settings
       );
       const data = await res.json();
-
       if (data.success) {
-        localStorage.setItem("token", data.token);
-
+        login(data.token);
         navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
-    console.log("Submitting", isSignUp ? "Signup" : "Login", "form");
   };
 
   const changeHandler = (e) => {

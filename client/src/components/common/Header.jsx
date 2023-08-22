@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
-import AddProduct from "./AddProduct";
+import AddProduct from "../product/AddProduct";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const Header = ({ user }) => {
   const [isAddItemOpen, setIsAddItemOpen] = useState(false);
@@ -21,9 +22,11 @@ const Header = ({ user }) => {
           <h1 className="text-lg font-semibold">Web Shop</h1>
         </Link>
         <div className="flex gap-5">
-          <div className="relative flex items-center">
+          <div className="relative flex items-center justify-center">
             <span className="mr-4"> {user?.username} </span>
           </div>
+          <AiOutlineShoppingCart size={25} />
+
           <Navbar />
         </div>
       </div>

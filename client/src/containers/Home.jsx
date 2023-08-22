@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import ProductList from "../components/ProductList";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { useFetch } from "../utils/useFetch";
+import ProductList from "../components/product/ProductList";
+
+import { Header, Footer } from "../components";
+
+import { useFetch } from "../hooks/useFetch";
 import { useData } from "../contexts/DataContext";
 import { API } from "../api";
 
@@ -12,6 +13,7 @@ const Home = ({ user }) => {
 
   useEffect(() => {
     if (data) {
+      // console.log("Refetched");
       setProducts(data.products);
     }
   }, [data]);

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import Input from "./Input";
-import { useData } from "../contexts/DataContext";
-import { addProduct } from "../api";
+import { useData } from "../../contexts/DataContext";
+import { addProduct } from "../../api";
+import Input from "../common/Input";
 
 const initialState = {
   name: "",

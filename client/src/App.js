@@ -1,49 +1,39 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
-import DataContext, { DataProvider } from "./contexts/DataContext";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 // Components
-import Auth from "./components/Auth";
-import { Home } from "./pages";
+import { Home } from "./containers";
+import { Auth } from "./components";
+import { useAuth } from "./hooks/useAuth";
+import { API } from "./api";
 import { useEffect } from "react";
-import { getUser } from "./utils/auth";
-
-const products = [
-  {
-    id: "1",
-    name: "tiru",
-    price: "200",
-  },
-  {
-    id: "2",
-    name: "tilu",
-    price: "200",
-  },
-  {
-    id: "3",
-    name: "tirulilil",
-    price: "200",
-  },
-];
-export const URL = "http://localhost:5000";
 
 function App() {
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
-  const user = getUser();
 
   useEffect(() => {
-    if (!user) {
-      navigate("/auth");
-    }
-  }, [user]);
+    if (!isAuthenticated() || !user) navigate("/auth");
+  }, [isAuthenticated, user, navigate]);
+
+  // const ProtectedRoutes = ({ element }) => {
+  //   if (!isAuthenticated()) {
+  //     return <Navigate to="/auth" />;
+  //   }
+  //   return element;
+  // };
 
   return (
     <>
-      <DataProvider>
-        <Routes>
-          <Route path="/*" element={<Home products={products} user={user} />} />
-          <Route path="/auth" element={<Auth URL={URL} />} />
-        </Routes>
-      </DataProvider>
+      <Routes>
+        <Route path="/auth" element={<Auth URL={API} />} />
+        {/* <Route
+          path="/*"
+          element={<ProtectedRoutes element={<Home user={user} />} />}
+        /> */}
+        <Route path="/*" element={<Home user={user} />} />
+
+        {/* <Route path="/*" element={<Home user={isAuthenticated} />} /> */}
+      </Routes>
     </>
   );
 }

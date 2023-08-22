@@ -26,7 +26,7 @@ const Navbar = () => {
               <Link to="/products">Your items</Link>
             </li>
             <li>
-              <Link to="/about"> Settings </Link>
+              <Link to="/settings"> Settings </Link>
             </li>
             {/* Add more menu items as needed */}
           </ul>

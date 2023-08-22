@@ -48,7 +48,6 @@ export const login = async (req, res) => {
       );
       return res.json({
         success: true,
-        user: existingUser,
         token: `Bearer ${token}`,
       });
     } else {
