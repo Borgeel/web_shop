@@ -13,6 +13,7 @@ export const request = async (url, method, body) => {
       headers,
       method,
       body: JSON.stringify(body),
+      credentials: "include",
     });
 
     if (!response.ok) {

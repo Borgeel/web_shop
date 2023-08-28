@@ -26,6 +26,8 @@ const Auth = () => {
         "POST",
         formData
       );
+      const data = await res.json();
+      console.log({ data });
       if (data.success) {
         login(data.token);
         navigate("/");

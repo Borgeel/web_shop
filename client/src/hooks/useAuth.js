@@ -24,12 +24,20 @@ export const AuthProvider = ({ children }) => {
     !!localStorage.getItem("isAuthenticated")
   );
 
-  useEffect(() => {
+  const decodedToken = () => {
+    const token = localStorage.getItem("token");
+
     if (token) {
-      const decoded = jwt_decode(token);
-      setUser(decoded);
+      try {
+        const decoded = jwt_decode(token);
+        return decoded;
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [isAuth]);
+  };
+
+  // const getToken = () => localStorage.getItem("token");
 
   const login = (token) => {
     localStorage.setItem("token", token);
