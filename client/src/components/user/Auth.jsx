@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../common/Input";
 import { useAuth } from "../../hooks/useAuth";
+import { request } from "../../api";
+
+// Components
+import Input from "../common/Input";
 
 const initialState = {
   username: "",
   password: "",
 };
 
-const Auth = ({ URL }) => {
+const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
@@ -18,16 +21,11 @@ const Auth = ({ URL }) => {
     e.preventDefault();
 
     try {
-      const settings = {
-        method: "POST",
-        headers: { "Content-Type": "Application/json" },
-        body: JSON.stringify(formData),
-      };
-      const res = await fetch(
-        `${URL}/users/${isSignUp ? "signup" : "login"}`,
-        settings
+      const data = await request(
+        `users/${isSignUp ? "signup" : "login"}`,
+        "POST",
+        formData
       );
-      const data = await res.json();
       if (data.success) {
         login(data.token);
         navigate("/");

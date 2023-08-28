@@ -1,7 +1,6 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { secretOrKey } from "../config/keys.js";
 
 export const singup = async (req, res) => {
   const { username, password } = req.body;
@@ -27,6 +26,7 @@ export const singup = async (req, res) => {
 
 export const login = async (req, res) => {
   const { username, password } = req.body;
+
   try {
     const existingUser = await User.findOne({ username });
 
@@ -41,12 +41,13 @@ export const login = async (req, res) => {
     if (isMatch) {
       const token = jwt.sign(
         { id: existingUser._id, username: existingUser.username },
-        secretOrKey,
+        process.env.SECRET_KEY,
         {
           expiresIn: "1h",
         }
       );
-      return res.json({
+
+      return res.status(201).json({
         success: true,
         token: `Bearer ${token}`,
       });

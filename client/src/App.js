@@ -1,19 +1,20 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 // Components
 import { Home } from "./containers";
 import { Auth } from "./components";
 import { useAuth } from "./hooks/useAuth";
-import { API } from "./api";
-import { useEffect } from "react";
 
 function App() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuth, user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated() || !user) navigate("/auth");
-  }, [isAuthenticated, user, navigate]);
+    if (!isAuth && !user) {
+      navigate("/auth");
+    }
+  }, [isAuth, user, navigate]);
 
   // const ProtectedRoutes = ({ element }) => {
   //   if (!isAuthenticated()) {
@@ -25,7 +26,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/auth" element={<Auth URL={API} />} />
+        <Route path="/auth" element={<Auth />} />
         {/* <Route
           path="/*"
           element={<ProtectedRoutes element={<Home user={user} />} />}

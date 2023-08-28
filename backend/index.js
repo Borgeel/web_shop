@@ -6,8 +6,6 @@ import bodyParser from "body-parser";
 import { connectDb } from "./server/config/db.js";
 import passport from "./server/middleware/passport.js";
 
-// MIDDLEWARE
-
 // ROUTES
 import products from "./server/routes/products.js";
 import users from "./server/routes/users.js";

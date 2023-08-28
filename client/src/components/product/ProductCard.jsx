@@ -4,10 +4,10 @@ import { useData } from "../../contexts/DataContext";
 const Product = ({ product: { name, price, image, _id } }) => {
   const { onDelete } = useData();
 
-  const deleteHandler = async (id) => {
+  const deleteHandler = async (_id) => {
     try {
-      await deleteProduct(id);
-      onDelete(id);
+      await deleteProduct(_id);
+      onDelete(_id);
     } catch (error) {
       console.log(error);
     }
