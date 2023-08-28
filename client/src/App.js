@@ -8,12 +8,14 @@ import { API } from "./api";
 import { useEffect } from "react";
 
 function App() {
-  const { isAuthenticated, user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated() || !user) navigate("/auth");
-  }, [isAuthenticated, user, navigate]);
+    if (!user && !isAuthenticated) {
+      navigate("/auth");
+    }
+  }, [isAuthenticated, navigate, user]);
 
   // const ProtectedRoutes = ({ element }) => {
   //   if (!isAuthenticated()) {
@@ -25,14 +27,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/auth" element={<Auth URL={API} />} />
         {/* <Route
           path="/*"
           element={<ProtectedRoutes element={<Home user={user} />} />}
         /> */}
         <Route path="/*" element={<Home user={user} />} />
-
-        {/* <Route path="/*" element={<Home user={isAuthenticated} />} /> */}
+        <Route path="/auth" element={<Auth URL={API} />} />
       </Routes>
     </>
   );

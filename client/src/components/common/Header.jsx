@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import AddProduct from "../product/AddProduct";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { BiLogOut } from "react-icons/bi";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = ({ user }) => {
   const [isAddItemOpen, setIsAddItemOpen] = useState(false);
+  const { logout } = useAuth();
 
   const toggleAddItem = () => {
     setIsAddItemOpen((prevState) => !prevState);
@@ -28,6 +31,9 @@ const Header = ({ user }) => {
           <AiOutlineShoppingCart size={25} />
 
           <Navbar />
+          <button onClick={() => logout()}>
+            <BiLogOut size={25} />
+          </button>
         </div>
       </div>
 

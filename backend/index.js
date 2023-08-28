@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 import { connectDb } from "./server/config/db.js";
 import passport from "./server/middleware/passport.js";
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV !== "production") {
 connectDb();
 
 const app = express();
+app.use(cookieParser());
 
 const port = process.env.PORT || 5000;
 

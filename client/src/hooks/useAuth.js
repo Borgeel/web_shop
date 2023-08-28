@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
@@ -8,7 +9,7 @@ export const useAuth = () => {
 };
 
 export const getAuthToken = () => {
-  const token = localStorage.getItem("token");
+  const token = Cookies.get("access-token");
 
   return {
     Authorization: token,
@@ -16,46 +17,59 @@ export const getAuthToken = () => {
   };
 };
 
+const decodedToken = () => {
+  const token = Cookies.get("access-token");
+
+  if (token) {
+    try {
+      const decoded = jwt_decode(token);
+      return decoded;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    Cookies.get("access-token") !== undefined || null
+  );
 
-  const decodedToken = () => {
-    const token = localStorage.getItem("token");
+  useEffect(() => {
+    const token = Cookies.get("access-token");
 
-    if (token) {
+    if (isAuthenticated && token) {
       try {
-        const decoded = jwt_decode(token);
-        return decoded;
+        const decoded = decodedToken();
+
+        if (decoded) {
+          setUser(decoded);
+          // Check token exp
+          const now = Date.now() / 1000;
+          if (decoded.exp < now) logout();
+        }
       } catch (error) {
         console.log(error);
+        logout();
       }
-    }
-  };
-
-  // const getToken = () => localStorage.getItem("token");
+    } else logout();
+  }, [isAuthenticated]);
 
   const login = (token) => {
-    localStorage.setItem("token", token);
+    Cookies.set("access-token", token);
 
-    if (token) {
-      const user = jwt_decode(token);
-      setUser(user);
-    }
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
-    localStorage.clear();
+    Cookies.remove("access-token");
+    setIsAuthenticated(false);
     setUser(null);
   };
 
-  const isAuthenticated = () => {
-    return user !== null;
-  };
-
   return (
-    <AuthContext.Provider
-      value={{ user, login, logout, isAuthenticated, decodedToken }}
-    >
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

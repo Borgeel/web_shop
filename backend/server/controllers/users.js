@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { secretOrKey } from "../config/keys.js";
+import cookieParser from "cookie-parser";
 
 export const singup = async (req, res) => {
   const { username, password } = req.body;
@@ -46,10 +47,20 @@ export const login = async (req, res) => {
           expiresIn: "1h",
         }
       );
-      return res.json({
-        success: true,
-        token: `Bearer ${token}`,
-      });
+
+      try {
+        // return res.json({success:true, token: `Bearer ${token }`})
+        res.cookie("access-token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "strict",
+          maxAge: 3600, // 1 hour in milliseconds
+          path: "/", // Set the cookie path
+        });
+        res.json({ succes: true, message: "Login success" });
+      } catch (error) {
+        res.json({ success: false, message: error });
+      }
     } else {
       return res
         .status(401)

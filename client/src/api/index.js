@@ -1,6 +1,6 @@
 import { getAuthToken } from "../hooks/useAuth";
 
-export const API = "http://localhost:3000/";
+export const API = "http://localhost:5000";
 
 export const request = async (url, method, body) => {
   const headers = {
@@ -13,6 +13,7 @@ export const request = async (url, method, body) => {
       headers,
       method,
       body: JSON.stringify(body),
+      credentials: "include",
     });
 
     if (!response.ok) {
