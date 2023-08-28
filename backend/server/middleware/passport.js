@@ -2,22 +2,9 @@ import passport from "passport";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import User from "../models/user.js";
 
-// const jwtOptions = {
-//   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//   secretOrKey: secretOrKey,
-// };
-
-const jwtCookieExtractor = (req) => {
-  console.log(req);
-  if (req && req.cookies) {
-    return req.cookies["access-token"];
-  }
-  return null;
-};
-
 const jwtOptions = {
-  jwtFromRequest: jwtCookieExtractor, // Use the custom cookie extractor
-  secretOrKey: secretOrKey,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.SECRET_KEY,
 };
 
 const strategy = new JwtStrategy(jwtOptions, async (payload, done) => {
