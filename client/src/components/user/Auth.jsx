@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { request } from "../../api";
+import { authHandler } from "../../api";
+import { FcGoogle } from "react-icons/fc";
 
 // Components
 import Input from "../common/Input";
+// import GoogleButton from "../common/GoogleButton";
+import Button from "../common/Button";
+import GoogleButton from "../common/GoogleButton";
 
 const initialState = {
   username: "",
@@ -14,21 +18,23 @@ const initialState = {
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const { login, isAuth, user } = useAuth();
   const navigate = useNavigate();
-  const { login } = useAuth();
+
+  useEffect(() => {
+    if (isAuth && user) {
+      navigate("/");
+    }
+  }, [user, navigate, isAuth]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const data = await request(
-        `users/${isSignUp ? "signup" : "login"}`,
-        "POST",
-        formData
-      );
-      if (data.success) {
-        login(data.token);
-        navigate("/");
+      const credentials = await authHandler(formData, isSignUp);
+
+      if (credentials && credentials.success) {
+        login(credentials?.token);
       }
     } catch (error) {
       console.log(error);
@@ -69,31 +75,34 @@ const Auth = () => {
               inputClass="w-full px-3 py-2 border rounded"
             />
           </div>
-          <button
+          <Button
+            buttonTxt={!isSignUp ? "Login" : "Sign up"}
+            buttonClass="w-full bg-blue-500 text-white py-2 rounded"
+            type="submit"
+          />
+          {/* <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded"
           >
             {isSignUp ? "Sign Up" : "Login"}
-          </button>
+          </button> */}
         </form>
+        <GoogleButton isSignUp={isSignUp} />
         <p className="mt-2">
           {isSignUp ? "Already have an account?" : "Don't have an account?"}
-          <button
+          <Button
             onClick={() => setIsSignUp(!isSignUp)}
-            className="text-blue-500 ml-1"
-          >
-            {isSignUp ? "Login" : "Sign Up"}
-          </button>
+            buttonTxt={isSignUp ? "Login" : "Sign up"}
+            buttonClass="text-blue-500 ml-1"
+          />
         </p>
       </div>
       <p className="mt-4">
-        Switch to{" "}
-        <button
+        <Button
+          buttonClass={"text-blue-500 focus:outline-none"}
           onClick={() => setIsSignUp(!isSignUp)}
-          className="text-blue-500 focus:outline-none"
-        >
-          {isSignUp ? "Login" : "Sign Up"}
-        </button>
+          buttonTxt={"Forgot your email or password?"}
+        />
       </p>
     </div>
   );

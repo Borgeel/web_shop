@@ -16,24 +16,12 @@ function App() {
     }
   }, [isAuth, user, navigate]);
 
-  // const ProtectedRoutes = ({ element }) => {
-  //   if (!isAuthenticated()) {
-  //     return <Navigate to="/auth" />;
-  //   }
-  //   return element;
-  // };
-
   return (
     <>
       <Routes>
         <Route path="/auth" element={<Auth />} />
-        {/* <Route
-          path="/*"
-          element={<ProtectedRoutes element={<Home user={user} />} />}
-        /> */}
-        <Route path="/*" element={<Home user={user} />} />
 
-        {/* <Route path="/*" element={<Home user={isAuthenticated} />} /> */}
+        <Route path="/*" element={<Home user={user} />} />
       </Routes>
     </>
   );

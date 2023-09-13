@@ -13,7 +13,6 @@ export const request = async (url, method, body) => {
       headers,
       method,
       body: JSON.stringify(body),
-      credentials: "include",
     });
 
     if (!response.ok) {
@@ -40,6 +39,29 @@ export const deleteProduct = async (id) => {
   try {
     const response = await request(`products/${id}`, "DELETE");
     return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const authHandler = async (formData, isSignUp) => {
+  try {
+    const cred = await request(
+      `users/${isSignUp ? "signup" : "login"}`,
+      "POST",
+      formData
+    );
+    return cred;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const googleTokenHandler = async (googleToken) => {
+  try {
+    const token = await request(`users/auth`, "POST", googleToken);
+    console.log("Token in googleTokenHandler", token);
+    return token;
   } catch (error) {
     console.log(error);
   }
