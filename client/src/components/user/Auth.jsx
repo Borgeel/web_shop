@@ -31,10 +31,9 @@ const Auth = () => {
   const submitHandler = async (e, isSignUp) => {
     e.preventDefault();
     try {
-      const credentials = await tokenHandler(formData);
+      const credentials = await tokenHandler(formData, isSignUp);
 
-      if (credentials && credentials.success)
-        login(credentials.token, isSignUp);
+      if (credentials && credentials.success) await login(credentials.token);
     } catch (error) {
       console.log(error);
     }

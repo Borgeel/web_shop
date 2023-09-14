@@ -9,11 +9,15 @@ const GoogleButton = ({ isSignUp }) => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (googleToken) => {
-      const response = await googleTokenHandler({
-        googleToken,
-      });
-      // console.log("Google token", token);
-      login(response.token);
+      try {
+        const response = await googleTokenHandler({
+          googleToken,
+        });
+        console.log(response);
+        if (response && response.success) login(response.token);
+      } catch (error) {
+        console.log(error);
+      }
     },
     onError: (error) => console.log(error),
   });

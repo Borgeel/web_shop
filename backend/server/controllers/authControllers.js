@@ -59,34 +59,45 @@ export const signup = async (req, res) => {
 
 export const signin = async (req, res) => {
   const { username, password, googleToken } = req.body;
-  if (googleToken && req.isGoogleUser === true)
-    console.log("Google token in signin", googleToken, req.isGoogleUser);
 
   try {
-    // if (googleToken && req.isGoogleUser === true) {
-    //   const { access_token } = googleToken;
-    //   const googleUser = await googleAuthHandler(access_token);
-    //   console.log({ googleUser });
-    // }
+    if (googleToken && req.isGoogleUser === true) {
+      const existingGoogleUser = await User.findOne({
+        googleId: googleToken.sub,
+      });
 
-    const existingUser = await User.findOne({ username });
-    if (!existingUser) {
-      return res
-        .status(401)
-        .json({ success: false, message: "User not found" });
-    }
-
-    const isMatch = await bcrypt.compare(password, existingUser.password);
-    if (isMatch) {
-      const token = await generateJwt(existingUser);
-      return res.status(201).json({
-        success: true,
-        token: `Bearer ${token}`,
+      if (existingGoogleUser) {
+        console.log(existingGoogleUser);
+        const token = await generateJwt(existingGoogleUser);
+        console.log("Token in controller", token);
+        return res
+          .status(201)
+          .json({ success: true, token: `Bearer ${token}` });
+      }
+      return res.status(401).json({
+        success: false,
+        message: "No user under this google account",
       });
     } else {
-      return res
-        .status(401)
-        .json({ success: false, message: "Password incorrect" });
+      const existingUser = await User.findOne({ username });
+      if (!existingUser) {
+        return res
+          .status(401)
+          .json({ success: false, message: "User not found" });
+      }
+
+      const isMatch = await bcrypt.compare(password, existingUser.password);
+      if (isMatch) {
+        const token = await generateJwt(existingUser);
+        return res.status(201).json({
+          success: true,
+          token: `Bearer ${token}`,
+        });
+      } else {
+        return res
+          .status(401)
+          .json({ success: false, message: "Password incorrect" });
+      }
     }
   } catch (error) {
     res.status(500).json({ success: false, message: error });
@@ -103,9 +114,7 @@ export const googleAuth = async (req, res) => {
 
 /////////////////////// HELPERS ///////////////////////
 const generateJwt = async (credentials) => {
-  const { _id, username } = credentials;
-
-  const token = jwt.sign({ _id, username }, process.env.SECRET_KEY, {
+  const token = jwt.sign({ credentials }, process.env.SECRET_KEY, {
     expiresIn: "1h",
   });
   return token;
