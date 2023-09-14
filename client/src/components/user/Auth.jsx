@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { authHandler } from "../../api";
-import { FcGoogle } from "react-icons/fc";
+import { tokenHandler } from "../../api";
 
 // Components
 import Input from "../common/Input";
-// import GoogleButton from "../common/GoogleButton";
 import Button from "../common/Button";
 import GoogleButton from "../common/GoogleButton";
 
 const initialState = {
   username: "",
   password: "",
+  email: "",
+  firstName: "",
+  lastName: "",
 };
 
 const Auth = () => {
@@ -27,23 +28,20 @@ const Auth = () => {
     }
   }, [user, navigate, isAuth]);
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e, isSignUp) => {
     e.preventDefault();
-
     try {
-      const credentials = await authHandler(formData, isSignUp);
+      const credentials = await tokenHandler(formData);
 
-      if (credentials && credentials.success) {
-        login(credentials?.token);
-      }
+      if (credentials && credentials.success)
+        login(credentials.token, isSignUp);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const changeHandler = (e) => {
+  const changeHandler = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
@@ -64,6 +62,43 @@ const Auth = () => {
               inputClass="w-full px-3 py-2 border rounded"
             />
           </div>
+          {isSignUp && (
+            <>
+              <div className="mb-4">
+                <Input
+                  name="email"
+                  type="text"
+                  changeHandler={changeHandler}
+                  placeHolder="Enter your email"
+                  labelClass="block mb-1"
+                  labelText="Email: "
+                  inputClass="w-full px-3 py-2 border rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <Input
+                  name="firstName"
+                  type="text"
+                  changeHandler={changeHandler}
+                  placeHolder="Enter your first name"
+                  labelClass="block mb-1"
+                  labelText="First Name: "
+                  inputClass="w-full px-3 py-2 border rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <Input
+                  name="lastName"
+                  type="text"
+                  changeHandler={changeHandler}
+                  placeHolder="Enter your last name"
+                  labelClass="block mb-1"
+                  labelText="Last Name: "
+                  inputClass="w-full px-3 py-2 border rounded"
+                />
+              </div>
+            </>
+          )}
           <div className="mb-4">
             <Input
               name="password"
@@ -80,14 +115,8 @@ const Auth = () => {
             buttonClass="w-full bg-blue-500 text-white py-2 rounded"
             type="submit"
           />
-          {/* <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded"
-          >
-            {isSignUp ? "Sign Up" : "Login"}
-          </button> */}
+          <GoogleButton isSignUp={isSignUp} type="submit" />
         </form>
-        <GoogleButton isSignUp={isSignUp} />
         <p className="mt-2">
           {isSignUp ? "Already have an account?" : "Don't have an account?"}
           <Button
