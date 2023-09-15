@@ -119,8 +119,8 @@ const Auth = () => {
             />
           </div>
           <Button
-            buttonTxt={!isSignUp ? "Login" : "Sign up"}
-            buttonClass="w-full bg-blue-500 text-white py-2 rounded"
+            btnTxt={!isSignUp ? "Login" : "Sign up"}
+            btnClass="w-full bg-blue-500 text-white py-2 rounded"
             type="submit"
           />
         </form>
@@ -129,16 +129,16 @@ const Auth = () => {
           {isSignUp ? "Already have an account?" : "Don't have an account?"}
           <Button
             onClick={() => setIsSignUp(!isSignUp)}
-            buttonTxt={isSignUp ? "Login" : "Sign up"}
-            buttonClass="text-blue-500 ml-1"
+            btnTxt={isSignUp ? "Login" : "Sign up"}
+            btnClass="text-blue-500 ml-1"
           />
         </p>
       </div>
       <p className="mt-4">
         <Button
-          buttonClass={"text-blue-500 focus:outline-none"}
+          btnClass={"text-blue-500 focus:outline-none"}
           onClick={() => setIsSignUp(!isSignUp)}
-          buttonTxt={"Forgot your email or password?"}
+          btnTxt={"Forgot your email or password?"}
         />
       </p>
     </div>

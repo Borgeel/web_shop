@@ -1,9 +1,9 @@
 export { default as Cart } from "./cart/Cart";
 export { default as CartItem } from "./cart/CartItem";
 export { default as Footer } from "./common/Footer";
-export { default as Header } from "./common/Header";
+export { default as Header } from "./header/Header";
 export { default as Input } from "./common/Input";
-export { default as Navbar } from "./common/Navbar";
+export { default as Navbar } from "./header/Navbar";
 export { default as AddProduct } from "./product/AddProduct";
 export { default as ProductCard } from "./product/ProductCard";
 export { default as ProductDetails } from "./product/ProductDetails";
