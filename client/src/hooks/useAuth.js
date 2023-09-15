@@ -3,9 +3,7 @@ import jwt_decode from "jwt-decode";
 
 const AuthContext = createContext();
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
 
 const token = () => localStorage.getItem("token");
 

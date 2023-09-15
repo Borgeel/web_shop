@@ -5,6 +5,7 @@ const DataContext = createContext({});
 export const useData = () => useContext(DataContext);
 
 export const DataProvider = ({ children }) => {
+  const [count, setCount] = useState(1);
   const [products, setProducts] = useState([]);
 
   const onDelete = (id) => {
@@ -14,7 +15,7 @@ export const DataProvider = ({ children }) => {
   };
 
   return (
-    <DataContext.Provider value={{ products, setProducts, onDelete }}>
+    <DataContext.Provider value={{ products, setProducts, onDelete, count }}>
       {children}
     </DataContext.Provider>
   );

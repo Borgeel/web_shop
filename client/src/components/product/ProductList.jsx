@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "../molecules/Product";
 
 const ProductList = ({ products }) => {
   console.log(products);

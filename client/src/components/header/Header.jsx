@@ -4,7 +4,7 @@ import AddProduct from "../product/AddProduct";
 import { useAuth } from "../../hooks/useAuth";
 import Button from "../common/Button";
 import SearchBar from "./SearchBar";
-import { TiThMenu } from "react-icons/ti"; // Import the TiThMenu icon
+import { TiThMenu } from "react-icons/ti";
 import Navbar from "./Navbar";
 
 const Header = () => {
@@ -27,13 +27,13 @@ const Header = () => {
         </Link>
         {/* Conditionally render the TiThMenu icon based on screen size */}
         {user && (
-          <div className="lg:hidden">
+          <div className="md:hidden  group-hover:text-blue-200 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-100">
             <TiThMenu className="text-3xl cursor-pointer" />
           </div>
         )}
         {user && (
           // Render Navbar for larger screens
-          <div className="hidden lg:block">
+          <div className="hidden md:flex">
             <Navbar />
           </div>
         )}
@@ -44,7 +44,7 @@ const Header = () => {
         <Button
           btnClass="bg-blue-600 text-white py-2 px-4 rounded transition-all duration-200 ease-in-out hover:bg-blue-700 active:bg-blue-800"
           onClick={() => toggleAddItem()}
-          btnTxt="List Item"
+          btnTxt="List product"
         />
       </div>
       {isAddItemOpen && <AddProduct onClose={closeAddItem} />}

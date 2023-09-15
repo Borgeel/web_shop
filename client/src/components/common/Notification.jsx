@@ -1,16 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { FaListAlt } from "react-icons/fa";
 
-const Notification = () => {
+const Notification = ({ count, color, position, size }) => {
+  console.log(size);
   return (
-    <Link
-      to="/notifications"
-      className="text-white hover:text-blue-400 flex items-center justify-between px-4 py-2 rounded-lg transition-all duration-300"
+    <div
+      className={`${color} absolute ${position} right-0  text-white ${size} rounded-full text-xs flex items-center justify-center -mt-2 -mr-2`}
+      style={{ fontSize: "0.65rem" }}
     >
-      <span>My listing</span>
-      <FaListAlt />
-    </Link>
+      {count}
+    </div>
   );
 };
 
