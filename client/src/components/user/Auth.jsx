@@ -14,6 +14,7 @@ const initialState = {
   email: "",
   firstName: "",
   lastName: "",
+  // isSignUp: null,
 };
 
 const Auth = () => {
@@ -28,10 +29,11 @@ const Auth = () => {
     }
   }, [user, navigate, isAuth]);
 
-  const submitHandler = async (e, isSignUp) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const credentials = await tokenHandler(formData, isSignUp);
+      const credentials = await tokenHandler(formData);
+      console.log(credentials);
 
       if (credentials && credentials.success) await login(credentials.token);
     } catch (error) {
@@ -39,8 +41,15 @@ const Auth = () => {
     }
   };
 
-  const changeHandler = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const changeHandler = (e) => {
+    setFormData((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value,
+        isSignUp: isSignUp,
+      };
+    });
+  };
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
@@ -114,8 +123,8 @@ const Auth = () => {
             buttonClass="w-full bg-blue-500 text-white py-2 rounded"
             type="submit"
           />
-          <GoogleButton isSignUp={isSignUp} type="submit" />
         </form>
+        <GoogleButton isSignUp={isSignUp} />
         <p className="mt-2">
           {isSignUp ? "Already have an account?" : "Don't have an account?"}
           <Button

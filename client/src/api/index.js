@@ -44,13 +44,10 @@ export const deleteProduct = async (id) => {
   }
 };
 
-export const tokenHandler = async (formData, isSignUp) => {
+export const tokenHandler = async (formData) => {
   try {
-    const cred = await request(
-      `auth/${isSignUp ? "signin" : "signup"}`,
-      "POST",
-      formData
-    );
+    console.log("Form Data token handler", formData);
+    const cred = await request(`auth`, "POST", formData);
     return cred;
   } catch (error) {
     console.log(error);
@@ -59,7 +56,7 @@ export const tokenHandler = async (formData, isSignUp) => {
 
 export const googleTokenHandler = async (googleToken) => {
   try {
-    const token = await request(`auth/google`, "POST", googleToken);
+    const token = await request(`auth`, "POST", googleToken);
     return token;
   } catch (error) {
     console.log(error);

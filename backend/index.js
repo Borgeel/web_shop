@@ -10,7 +10,6 @@ import passport from "./server/middleware/passport.js";
 // ROUTES
 import productRoutes from "./server/routes/productRoutes.js";
 import authRoutes from "./server/routes/authRoutes.js";
-import { checkGoogleUser } from "./server/middleware/auth.js";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();

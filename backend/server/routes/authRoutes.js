@@ -1,11 +1,13 @@
 import express from "express";
-import { signup, signin, googleAuth } from "../controllers/authControllers.js";
-import { checkGoogleUser } from "../middleware/auth.js";
+import { finalAuth } from "../controllers/authControllers.js";
+import {
+  googleMiddleware,
+  signInMiddleware,
+  authMiddleware,
+} from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/signin", signin);
-router.post("/google", checkGoogleUser, googleAuth);
+router.post("/", googleMiddleware, authMiddleware, signInMiddleware, finalAuth);
 
 export default router;
