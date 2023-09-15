@@ -1,6 +1,16 @@
 import bcrypt from "bcrypt";
 import User from "../models/user.js";
 
+const getRandomColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 const googleMiddleware = async (req, res, next) => {
   // If google token is not in req return
   if (!req.body.googleToken) return next();
@@ -86,6 +96,7 @@ const authMiddleware = async (req, res, next) => {
         firstName,
         email,
         password: hash,
+        profileColor: getRandomColor(),
       });
 
       newUser.save();

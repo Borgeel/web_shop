@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema({
   firstName: { type: String },
   lastName: { type: String },
   picture: { type: String },
+  profileColor: { type: String },
   orders: [
     {
       orderId: { type: mongoose.Schema.Types.ObjectId, ref: "Order" },

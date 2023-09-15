@@ -5,10 +5,12 @@ import AddProduct from "../product/AddProduct";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 import { useAuth } from "../../hooks/useAuth";
+import UserCircle from "./UserCircle";
+import Button from "./Button";
 
-const Header = ({ user }) => {
+const Header = () => {
   const [isAddItemOpen, setIsAddItemOpen] = useState(false);
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const toggleAddItem = () => {
     setIsAddItemOpen((prevState) => !prevState);
@@ -19,25 +21,35 @@ const Header = ({ user }) => {
   };
 
   return (
-    <header className="bg-blue-500  text-white">
-      <div className="container mx-auto p-4 flex justify-between items-center">
+    <header className="bg-blue-500 text-white py-4">
+      <div className="container mx-auto flex justify-between items-center">
         <Link to="/">
-          <h1 className="text-lg font-semibold">Web Shop</h1>
+          <h1 className="text-2xl font-semibold text-white">Web Shop</h1>
         </Link>
-        <div className="flex gap-5">
-          <div className="relative flex items-center justify-center">
-            <span className="mr-4"> {user?.username} </span>
+        <div className="flex items-center space-x-5">
+          {user && (
+            <>
+              <Navbar />
+              <UserCircle user={user} />
+              <button
+                onClick={() => logout()}
+                className="text-white hover:text-blue-400"
+              >
+                <BiLogOut size={25} />
+              </button>
+            </>
+          )}
+          <div className="relative group">
+            <AiOutlineShoppingCart
+              size={25}
+              className="text-white group-hover:text-blue-400"
+            />
+            {/* Add the cart item count indicator here */}
           </div>
-          <AiOutlineShoppingCart size={25} />
-
-          <Navbar />
-          <button onClick={() => logout()}>
-            <BiLogOut size={25} />
-          </button>
         </div>
       </div>
 
-      <div className="bg-gray-200 py-2 px-4 w-full flex justify-between items-center">
+      <div className="bg-gray-200 py-2 px-4 flex justify-between items-center">
         <input
           type="text"
           placeholder="Search..."

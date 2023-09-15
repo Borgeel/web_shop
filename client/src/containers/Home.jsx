@@ -28,7 +28,7 @@ const Home = ({ user }) => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header user={user} />
+      <Header />
       {loading && (
         <h2 className="text-xl font-semibold mb-4">
           Welcome to Web Shop! Loading

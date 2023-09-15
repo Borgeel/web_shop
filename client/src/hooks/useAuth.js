@@ -28,7 +28,13 @@ export const AuthProvider = ({ children }) => {
     if (isAuth && token()) {
       console.log("useEffect from useAuth ran");
       const decoded = jwt_decode(token());
-      setUser(decoded);
+      const userData = {
+        ...decoded.credentials,
+        exp: decoded.exp,
+        iat: decoded.iat,
+      };
+
+      setUser(userData);
     } else {
       localStorage.setItem("isAuthenticated", false);
       setIsAuth(false);
