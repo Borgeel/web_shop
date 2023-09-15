@@ -98,11 +98,9 @@ const authMiddleware = async (req, res, next) => {
 };
 
 const signInMiddleware = async (req, res, next) => {
-  console.log(req.body.password);
-  console.log(req.credentials.password);
+  // GOOGLE SIGN IN
   if (req.isGoogleUser === true) return next();
-  // SING IN
-  console.log(req.body.isSignUp);
+  // MANUAL SING IN
   if (req.body.isSignUp === false) {
     const isMatch = await bcrypt.compare(
       req.body.password,
@@ -114,6 +112,7 @@ const signInMiddleware = async (req, res, next) => {
         .json({ success: false, message: "Password incorrect" });
     return next();
   }
+  // MANUAL SIGN UP
   if (req.body.isSignUp === true) return next();
 
   next();
