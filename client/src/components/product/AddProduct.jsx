@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useData } from "../../contexts/DataContext";
 import { addProduct } from "../../api";
 import Input from "../common/Input";
+import useCloseModal from "../../hooks/useCloseModal";
+import { Button } from "../common";
 
 const initialState = {
   name: "",
@@ -14,19 +16,7 @@ const AddProduct = ({ onClose }) => {
   const { setProducts } = useData();
   const [formData, setFormData] = useState(initialState);
   const modalRef = useRef(null);
-
-  useEffect(() => {
-    const clickOutsideHandler = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        onClose();
-      }
-    };
-    document.addEventListener("mousedown", clickOutsideHandler);
-    // Clean-up the event
-    return () => {
-      document.removeEventListener("mousedown", clickOutsideHandler);
-    };
-  }, [onClose]);
+  useCloseModal(modalRef, onClose);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -93,12 +83,11 @@ const AddProduct = ({ onClose }) => {
               placeHolder="Enter product price"
             />
           </div>
-          <button
+          <Button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded"
-          >
-            Add Item
-          </button>
+            btnClass="bg-blue-500 text-white py-2 px-4"
+            btnTxt="Add Item"
+          />
         </form>
       </div>
     </div>

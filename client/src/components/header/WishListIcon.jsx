@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
-import { Notification } from "../common";
+import { Button, Notification } from "../common";
 
 const WishlistLink = () => {
   const { count } = useData();
   return (
     <Link to="/wishlist" className="relative">
-      <div className="px-4 py-2 border border-white rounded-lg text-white hover:text-blue-400 active:scale-95 transition-colors duration-300 relative">
-        <span>Wishlist</span>
-      </div>
+      <Button
+        btnClass="px-4 py-2 text-sm text-white hover:text-blue-400 transition-colors duration-300 relative"
+        btnTxt="Wishlist"
+      />
       {count > 0 && (
         <Notification
           color="bg-red-500"

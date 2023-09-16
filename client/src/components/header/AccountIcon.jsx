@@ -32,24 +32,24 @@ const AccountIcon = () => {
   };
 
   return (
-    <div className="relative group" onClick={toggleDropdown}>
-      {user && user.picture ? (
-        <img
-          src={user.picture}
-          alt="User"
-          className="w-8 h-8 rounded-full"
-          style={{ backgroundColor: `${user.picture}` }}
-        />
-      ) : (
-        <div
-          className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-300 text-white"
-          style={{ backgroundColor: `${user.profileColor}` }}
-        >
-          <span className="user-circle-initials text-lg font-bold">
-            {getInitials()}
-          </span>
-        </div>
-      )}
+    <div className="relative group cursor-pointer" onClick={toggleDropdown}>
+      <div className="hover:scale-105 active:scale-100 duration-300 transition-all">
+        {user && user.picture ? (
+          <img
+            src={user.picture}
+            alt="User"
+            className="w-11 h-11 rounded-full"
+            style={{ backgroundColor: `${user.picture}` }}
+          />
+        ) : (
+          <div
+            className="w-11 h-11 rounded-full flex items-center justify-center bg-gray-300 text-white"
+            style={{ backgroundColor: `${user.profileColor}` }}
+          >
+            <span className="text-lg font-bold">{getInitials()}</span>
+          </div>
+        )}
+      </div>
 
       {isDropdownOpen && (
         <Menu isOpen={isDropdownOpen} onClose={closeDropdown} />

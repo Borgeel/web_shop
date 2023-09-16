@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import Button from "../common/Button";
 import { useAuth } from "../../hooks/useAuth";
+import useCloseModal from "../../hooks/useCloseModal";
 
 const Menu = ({ isOpen, onClose }) => {
+  const menuRef = useRef();
   const { logout } = useAuth();
+  useCloseModal(menuRef, onClose);
 
   return (
     <>
       {isOpen && (
-        <div className="absolute top-12 right-0 bg-white p-2 shadow-md rounded mt-1">
+        <div
+          ref={menuRef}
+          className="absolute top-12 right-0 bg-white p-2 shadow-md rounded mt-1"
+        >
           <ul className="flex flex-col p-4 text-black space-y-2">
             <MenuItem to="/" text="Profile" onClose={onClose} />
             <MenuItem to="/products" text="Your items" onClose={onClose} />

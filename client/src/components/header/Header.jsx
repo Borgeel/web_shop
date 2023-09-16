@@ -42,7 +42,7 @@ const Header = () => {
       <div className="bg-gray-200 py-1 px-4 flex justify-between items-center">
         <SearchBar />
         <Button
-          btnClass="bg-blue-600 text-white py-2 px-4 rounded transition-all duration-200 ease-in-out hover:bg-blue-700 active:bg-blue-800"
+          btnClass="bg-blue-600 text-white py-2 px-4 hover:bg-blue-700 active:bg-blue-800"
           onClick={() => toggleAddItem()}
           btnTxt="List product"
         />
