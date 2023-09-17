@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { BrowserRouter } from "react-router-dom";
 import { DataProvider } from "./contexts/DataContext";
+import { UserProvider } from "./contexts/UserContext";
 import { AuthProvider } from "./hooks/useAuth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -14,9 +15,11 @@ root.render(
     <React.StrictMode>
       <BrowserRouter>
         <AuthProvider>
-          <DataProvider>
-            <App />
-          </DataProvider>
+          <UserProvider>
+            <DataProvider>
+              <App />
+            </DataProvider>
+          </UserProvider>
         </AuthProvider>
       </BrowserRouter>
     </React.StrictMode>

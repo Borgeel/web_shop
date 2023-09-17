@@ -26,6 +26,16 @@ export const request = async (url, method, body) => {
   }
 };
 
+export const getProducts = async () => {
+  try {
+    const response = await request(`${API}/products`, "GET");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const addProduct = async (formData) => {
   try {
     const response = await request("products", "POST", formData);

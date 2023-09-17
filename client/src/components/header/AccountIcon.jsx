@@ -6,8 +6,6 @@ const AccountIcon = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user } = useAuth();
 
-  console.log(user);
-
   const getInitials = () => {
     if (user && user.username) {
       const usernameParts = user.username.split(" ");

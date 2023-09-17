@@ -1,16 +1,39 @@
 import mongoose from "mongoose";
 
 const productSchema = mongoose.Schema({
-  id: String,
-  name: String,
-  creator: String,
-  description: String,
-  tags: [String],
-  selectedFile: String,
-  price: Number,
-  createdAt: {
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  condition: {
+    type: String,
+    enum: ["New", "Used", "Refurbished", "Open Box"],
+    required: true,
+  },
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  location: String,
+  imageUrl: String,
+  created_at: {
     type: Date,
-    default: new Date(),
+    default: Date.now,
   },
 });
 

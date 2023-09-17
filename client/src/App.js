@@ -5,10 +5,14 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { Home } from "./containers";
 import { Auth } from "./components";
 import { useAuth } from "./hooks/useAuth";
+import { useData } from "./contexts/DataContext";
 
 function App() {
   const { isAuth, user } = useAuth();
+  const { products } = useData();
   const navigate = useNavigate();
+
+  console.log(products);
 
   useEffect(() => {
     if (!isAuth && !user) {
@@ -20,8 +24,11 @@ function App() {
     <>
       <Routes>
         <Route path="/auth" element={<Auth />} />
-
-        <Route path="/*" element={<Home user={user} />} />
+        <Route path="/*" element={<Home />} />
+        {/* <Route
+          path="/product"
+          element={<ProductPage user={user} product={product} />}
+        /> */}
       </Routes>
     </>
   );

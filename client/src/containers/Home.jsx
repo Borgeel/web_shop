@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import ProductList from "../components/product/ProductList";
 
 import { Header, Footer } from "../components";
@@ -6,14 +6,16 @@ import { Header, Footer } from "../components";
 import { useFetch } from "../hooks/useFetch";
 import { useData } from "../contexts/DataContext";
 import { API } from "../api";
+import { UserContext, useUser } from "../contexts/UserContext";
 
-const Home = ({ user }) => {
+const Home = () => {
   const { products, setProducts } = useData();
   const { data, loading, error } = useFetch(`${API}/products`);
+  const { user } = useUser();
+  console.log(user);
 
   useEffect(() => {
     if (data) {
-      // console.log("Refetched");
       setProducts(data.products);
     }
   }, [data]);
@@ -34,15 +36,13 @@ const Home = ({ user }) => {
           Welcome to Web Shop! Loading
         </h2>
       )}
-      {user ? (
-        products.length > 0 ? (
-          <ProductList products={products} />
-        ) : (
-          <p> No products found! </p>
-        )
+
+      {products.length > 0 ? (
+        <ProductList products={products} />
       ) : (
-        <p>Please login or register to view products.</p>
+        <h1> No products found. </h1>
       )}
+
       <Footer />
     </div>
   );

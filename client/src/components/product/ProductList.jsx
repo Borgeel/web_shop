@@ -1,9 +1,8 @@
-import ProductCard from "../molecules/Product";
+import ProductCard from "./ProductCard";
 
 const ProductList = ({ products }) => {
-  console.log(products);
   return (
-    <ul className="flex gap-2 p-2">
+    <ul className="flex items-center justify-center gap-2 p-2">
       {products?.map((product) => (
         <ProductCard product={product} key={product._id} />
       ))}

@@ -33,7 +33,6 @@ const Auth = () => {
     e.preventDefault();
     try {
       const credentials = await tokenHandler(formData);
-      console.log(credentials);
 
       if (credentials && credentials.success) await login(credentials.token);
     } catch (error) {

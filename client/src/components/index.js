@@ -6,7 +6,6 @@ export { default as Input } from "./common/Input";
 export { default as Navbar } from "./header/Navbar";
 export { default as AddProduct } from "./product/AddProduct";
 export { default as ProductCard } from "./product/ProductCard";
-export { default as ProductDetails } from "./product/ProductDetails";
 export { default as ProductList } from "./product/ProductList";
 export { default as Auth } from "./user/Auth";
 export { default as UserProfile } from "./user/UserProfile";
