@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import UserContextProvider from "./UserContext";
 
 const DataContext = createContext({});
 

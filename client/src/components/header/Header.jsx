@@ -32,20 +32,21 @@ const Header = () => {
             <TiThMenu className="text-3xl cursor-pointer" />
           </div>
         )}
-        {user && (
-          <div className="hidden md:flex">
-            <Navbar />
-          </div>
-        )}
+
+        <div className="hidden md:flex">
+          <Navbar />
+        </div>
       </div>
 
       <div className="bg-gray-200 py-1 px-4 flex justify-between items-center">
         <SearchBar />
-        <Button
-          btnClass="bg-blue-600 text-white py-2 px-4 hover:bg-blue-700 active:bg-blue-800"
-          onClick={() => toggleAddItem()}
-          btnTxt="List product"
-        />
+        {user && (
+          <Button
+            btnClass="bg-blue-600 text-white py-2 px-4 hover:bg-blue-700 active:bg-blue-800"
+            onClick={() => toggleAddItem()}
+            btnTxt="List product"
+          />
+        )}
       </div>
       {isAddItemOpen && <AddProduct onClose={closeAddItem} />}
     </header>

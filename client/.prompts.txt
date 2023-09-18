@@ -1,0 +1,33 @@
+- Web-shop application such as Ebay
+- Using regular HTTP fetch
+- Using ReactJS frontend
+- Using most optimal logic and following best practices
+- Using useContext to handle data
+- Following separation of concerns
+- You will try to make everything as dynamic as possible
+- We will focus more on logic and functions than jsx and components
+
+- Structure
+src/
+├── components/
+│   └── pages/
+│       ├── Homepage.js
+│   └── user/
+│       ├── Auth.js
+├── contexts/
+│   └── AuthContext.js
+│   └── ProductDataContext.js
+├── hooks/
+│   └── useAuth.js
+│   └── useProductData.js
+├── services/
+│   └── authService.js
+│   └── productDataService.js
+│   └── requestService.js
+├── App.js
+└── index.js
+```
+
+Let's start with the basic code and we will build up. 
+If we are trying to avoid using Redux library what would be the best way of handling and presisting state e.g. scenario
+- client signs in and we want to keep him logged in while the token lasts

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useData } from "../../contexts/DataContext";
-import { addProduct } from "../../api";
 import Input from "../common/Input";
 import useCloseModal from "../../hooks/useCloseModal";
 import { Button } from "../common";
@@ -18,19 +17,19 @@ const AddProduct = ({ onClose }) => {
   const modalRef = useRef(null);
   useCloseModal(modalRef, onClose);
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  // const submitHandler = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      const data = await addProduct(formData);
+  //   try {
+  //     const data = await addProduct(formData);
 
-      setFormData(initialState);
-      setProducts((prevState) => [...prevState, data]);
-      onClose();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setFormData(initialState);
+  //     setProducts((prevState) => [...prevState, data]);
+  //     onClose();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,7 +39,7 @@ const AddProduct = ({ onClose }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div ref={modalRef} className="bg-white p-4 rounded shadow-md w-96">
         <h2 className="text-xl mb-4 text-black">Add Product</h2>
-        <form onSubmit={submitHandler}>
+        <form onSubmit>
           <div className="mb-4">
             <Input
               name="name"

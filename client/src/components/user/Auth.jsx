@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { tokenHandler } from "../../api";
 
 // Components
 import Input from "../common/Input";
@@ -14,29 +13,30 @@ const initialState = {
   email: "",
   firstName: "",
   lastName: "",
-  // isSignUp: null,
 };
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState(initialState);
-  const { login, isAuth, user } = useAuth();
+  const { user, auth, setIsLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuth && user) {
+    if (user) {
       navigate("/");
     }
-  }, [user, navigate, isAuth]);
+  }, [user, navigate]);
 
-  const submitHandler = async (e) => {
+  const authHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      const credentials = await tokenHandler(formData);
-
-      if (credentials && credentials.success) await login(credentials.token);
+      await auth({ ...formData, isSignUp: isSignUp });
     } catch (error) {
-      console.log(error);
+      console.log("Error in authHandler: ", error);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -57,7 +57,7 @@ const Auth = () => {
       </h1>
       <div className="bg-white p-6 rounded shadow-md w-96">
         <h2 className="text-xl mb-4">{isSignUp ? "Sign Up" : "Login"}</h2>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={authHandler}>
           <div className="mb-4">
             <Input
               name="username"

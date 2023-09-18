@@ -10,7 +10,7 @@ const Navbar = () => {
   const { user } = useAuth();
 
   return (
-    <nav className="flex items-center space-x-4 p-2 gap-3">
+    <nav className="flex items-center space-x-2 p-1">
       {user ? (
         <>
           <MyListing />
@@ -30,12 +30,12 @@ const Navbar = () => {
 
 const NavItem = ({ action }) => {
   return (
-    <Button
-      btnTxt={action}
-      btnClass="px-4 py-2 text-white hover:text-blue-400 relative"
-    >
-      <Link path="auth" />
-    </Button>
+    <Link to="/auth">
+      <Button
+        btnTxt={action}
+        btnClass="px-4 py-2 text-white hover:text-blue-400 relative"
+      />
+    </Link>
   );
 };
 

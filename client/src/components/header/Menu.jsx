@@ -10,6 +10,10 @@ const Menu = ({ isOpen, onClose }) => {
   const { logout } = useAuth();
   useCloseModal(menuRef, onClose);
 
+  const logoutHandler = () => {
+    logout();
+  };
+
   return (
     <>
       {isOpen && (
@@ -23,7 +27,7 @@ const Menu = ({ isOpen, onClose }) => {
             <MenuItem to="/settings" text="Settings" onClose={onClose} />
             <Button
               btnClass="text-blue-500 hover:text-blue-700 transition-all duration-200 ease-in-out"
-              onClick={() => logout()}
+              onClick={() => logoutHandler()}
               icon={<BiLogOut size={25} />}
             />
             {/* Add more menu items as needed */}

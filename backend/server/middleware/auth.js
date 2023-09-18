@@ -12,8 +12,11 @@ const getRandomColor = () => {
 };
 
 const googleMiddleware = async (req, res, next) => {
+  console.log(req.body);
   // If google token is not in req return
-  if (!req.body.googleToken) return next();
+  if (!req.body.googleToken) {
+    return next();
+  }
 
   const { googleToken } = req.body;
   try {
@@ -79,7 +82,7 @@ const authMiddleware = async (req, res, next) => {
           success: false,
           message: "Email or username were already used",
         });
-      } else if (!isSignUp && existingUser) {
+      } else if (isSignUp === false && existingUser) {
         const isMatch = await bcrypt.compare(password, existingUser.password);
 
         if (isMatch) {
@@ -94,7 +97,7 @@ const authMiddleware = async (req, res, next) => {
         username,
         lastName,
         firstName,
-        email,
+        email: email || "placeholder@example.com",
         password: hash,
         profileColor: getRandomColor(),
       });

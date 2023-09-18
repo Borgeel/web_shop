@@ -2,19 +2,16 @@ import { useGoogleLogin } from "@react-oauth/google";
 import Button from "./Button";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../hooks/useAuth";
-import { googleTokenHandler } from "../../api";
 
 const GoogleButton = ({ isSignUp }) => {
-  const { login } = useAuth();
+  const { auth } = useAuth();
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (googleToken) => {
       try {
-        const response = await googleTokenHandler({
+        await auth({
           googleToken,
         });
-        console.log(response);
-        if (response && response.success) login(response.token);
       } catch (error) {
         console.log(error);
       }
