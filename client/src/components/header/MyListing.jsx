@@ -1,10 +1,10 @@
 import React from "react";
 import { FaListAlt } from "react-icons/fa";
-import { useData } from "../../contexts/DataContext";
+import { useProductContext } from "../../contexts/ProductContext";
 import { Notification } from "../common";
 
 const MyListing = () => {
-  const { count } = useData();
+  const { count } = useProductContext();
 
   return (
     <div className="relative group">

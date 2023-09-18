@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useData } from "../../contexts/DataContext";
+import { useProductContext } from "../../contexts/ProductContext";
 import { Button, Notification } from "../common";
 
 const WishlistLink = () => {
-  const { count } = useData();
+  const { count } = useProductContext();
   return (
     <Link to="/wishlist" className="relative">
       <Button

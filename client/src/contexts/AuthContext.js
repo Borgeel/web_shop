@@ -1,9 +1,18 @@
-import { createContext, useState, useMemo, useEffect } from "react";
+import { createContext, useState, useMemo, useEffect, useContext } from "react";
 import { authServices } from "../services/authServices";
 import jwtDecode from "jwt-decode";
 
-export const AuthContext = createContext({});
+const AuthContext = createContext({});
 
+// HOOK
+export const useAuthContext = () => {
+  const authContext = useContext(AuthContext);
+  if (!authContext)
+    throw new Error("AuthContext can only be access within AuthProvider");
+  return authContext;
+};
+
+// CONTEXT
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);

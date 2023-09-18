@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 // Components
 import Input from "../common/Input";
@@ -18,7 +18,7 @@ const initialState = {
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState(initialState);
-  const { user, auth, setIsLoading } = useAuth();
+  const { user, auth, setIsLoading } = useAuthContext();
   const navigate = useNavigate();
 
   useEffect(() => {

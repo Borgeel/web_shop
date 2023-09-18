@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TiThMenu } from "react-icons/ti";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 // Components
 import AddProduct from "../product/AddProduct";
@@ -11,7 +11,7 @@ import Navbar from "./Navbar";
 
 const Header = () => {
   const [isAddItemOpen, setIsAddItemOpen] = useState(false);
-  const { user } = useAuth();
+  const { user } = useAuthContext();
 
   const toggleAddItem = () => {
     setIsAddItemOpen((prevState) => !prevState);

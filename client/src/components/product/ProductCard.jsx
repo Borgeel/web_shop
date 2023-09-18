@@ -1,8 +1,6 @@
-import { useData } from "../../contexts/DataContext";
+import { useProductContext } from "../../contexts/ProductContext";
 
 const Product = ({ product: { name, price, image, _id } }) => {
-  const { onDelete } = useData();
-
   // const deleteHandler = async (_id) => {
   //   try {
   //     await deleteProduct(_id);

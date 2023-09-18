@@ -2,15 +2,15 @@ import AccountIcon from "./AccountIcon";
 import CartIcon from "./CartIcon";
 import WishlistLink from "./WishListIcon";
 import MyListing from "./MyListing";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { Button } from "../common";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user } = useAuthContext();
 
   return (
-    <nav className="flex items-center space-x-2 p-1">
+    <nav className="flex items-center space-x-2 px-2 py-1 gap-2">
       {user ? (
         <>
           <MyListing />

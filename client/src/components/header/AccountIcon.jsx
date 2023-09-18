@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const AccountIcon = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { user } = useAuth();
+  const { user } = useAuthContext();
 
   const getInitials = () => {
     if (user && user.username) {

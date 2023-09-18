@@ -1,10 +1,10 @@
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useData } from "../../contexts/DataContext";
+import { useProductContext } from "../../contexts/ProductContext";
 import { Notification } from "../common";
 
 const CartIcon = () => {
-  const { count } = useData();
+  const { count } = useProductContext();
 
   return (
     <div className="relative group">

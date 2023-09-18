@@ -2,12 +2,12 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import Button from "../common/Button";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuthContext } from "../../contexts/AuthContext";
 import useCloseModal from "../../hooks/useCloseModal";
 
 const Menu = ({ isOpen, onClose }) => {
   const menuRef = useRef();
-  const { logout } = useAuth();
+  const { logout } = useAuthContext();
   useCloseModal(menuRef, onClose);
 
   const logoutHandler = () => {

@@ -1,10 +1,10 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import Button from "./Button";
 import { FcGoogle } from "react-icons/fc";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const GoogleButton = ({ isSignUp }) => {
-  const { auth } = useAuth();
+  const { auth } = useAuthContext();
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (googleToken) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useData } from "../../contexts/DataContext";
+import { useProductContext } from "../../contexts/ProductContext";
 import Input from "../common/Input";
 import useCloseModal from "../../hooks/useCloseModal";
 import { Button } from "../common";
@@ -12,7 +12,7 @@ const initialState = {
 };
 
 const AddProduct = ({ onClose }) => {
-  const { setProducts } = useData();
+  const { setProducts } = useProductContext();
   const [formData, setFormData] = useState(initialState);
   const modalRef = useRef(null);
   useCloseModal(modalRef, onClose);

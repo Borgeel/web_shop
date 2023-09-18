@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import ProductList from "../components/product/ProductList";
 
 import { Header, Footer } from "../components";
 
-import { useData } from "../contexts/DataContext";
-import { useAuth } from "../hooks/useAuth";
+import { useProductContext } from "../contexts/ProductContext";
+import ProductList from "../components/product/ProductList";
+import Loader from "../components/common/Loader";
 
 const Home = () => {
-  const { products, setProducts } = useData();
+  const { products, setProducts } = useProductContext();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -17,13 +17,13 @@ const Home = () => {
           Welcome to Web Shop! Loading
         </h2>
       )} */}
-
       {products?.length > 0 ? (
         <ProductList products={products} />
       ) : (
         <h1> No products found. </h1>
       )}
-      <Footer />
+      <Loader />
+      <Footer visible />
     </div>
   );
 };
