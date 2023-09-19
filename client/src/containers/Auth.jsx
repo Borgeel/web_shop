@@ -62,10 +62,13 @@ const Auth = () => {
             name="username"
             type="text"
             onChange={onChange}
-            placeholder="Enter your username"
+            placeholder={
+              isSignUp ? "Enter your username" : "Enter your email or username"
+            }
             labelClass="block mb-1"
             labelText="Username: "
             inputClass="w-full px-3 py-2 border rounded"
+            autoFocus={true}
           />
         </div>
         {isSignUp && (

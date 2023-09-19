@@ -1,5 +1,4 @@
 import { useLoading } from "../../contexts/LoadingContext";
-import { uniqueBtnId } from "../../utils/getId";
 import Loader from "./Loader";
 import PropTypes from "prop-types";
 
@@ -10,18 +9,17 @@ const Button = ({
   buttonId,
   onClick,
   type,
-  link,
   ...props
 }) => {
   // Subscribe to useLoading and immediatly provide it the Button instance id
-
-  console.log(buttonId);
   const { isBtnLoading, startBtnLoading, stopBtnLoading } =
     useLoading(buttonId);
 
   const clickHandler = async () => {
     if (!buttonId) {
-      return onClick();
+      if (onClick) {
+        return onClick();
+      }
     } else {
       startBtnLoading();
       try {
@@ -53,6 +51,8 @@ Button.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
   type: PropTypes.string,
+  buttonId: PropTypes.string,
+  onClickRequest: PropTypes.func,
 };
 
 export default Button;
