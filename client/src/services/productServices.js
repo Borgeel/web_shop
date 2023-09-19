@@ -6,7 +6,7 @@ export const productServices = {
       const response = await requestServices.request("/products", "GET");
       return response;
     } catch (error) {
-      console.log("Error in productServices.getAllProducts: ", error);
+      console.log("Error from productServices.getAllProducts: ", error);
     }
   },
   getProductById: async (productId) => {
@@ -17,7 +17,7 @@ export const productServices = {
       );
       return response;
     } catch (error) {
-      console.log("Error in productServices.getProductById: ", error);
+      console.log("Error from productServices.getProductById: ", error);
     }
   },
   createProduct: async (productData) => {
@@ -29,7 +29,7 @@ export const productServices = {
       );
       return response;
     } catch (error) {
-      console.log("Error in productServices.createProduct: ", error);
+      console.log("Error from productServices.createProduct: ", error);
     }
   },
   updateProductById: async (updatedData, productId) => {
@@ -41,7 +41,7 @@ export const productServices = {
       );
       return response;
     } catch (error) {
-      console.log("Error in productServices.updateProductById: ", error);
+      console.log("Error from productServices.updateProductById: ", error);
     }
   },
   deleteProductById: async (productId) => {
@@ -52,7 +52,7 @@ export const productServices = {
       );
       return response;
     } catch (error) {
-      console.log("Error in productServices.deleteProductById: ", error);
+      console.log("Error from productServices.deleteProductById: ", error);
     }
   },
 };

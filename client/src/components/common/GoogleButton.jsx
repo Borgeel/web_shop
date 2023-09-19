@@ -21,11 +21,12 @@ const GoogleButton = ({ isSignUp }) => {
 
   return (
     <Button
-      btnClass="w-full bg-gray-200 text-black py-2 flex justify-center mt-1"
-      btnTxt={!isSignUp ? "Sign in with Google" : "Sing up with Google"}
+      className="w-full bg-gray-200 text-black py-2 flex justify-center mt-1"
       onClick={() => googleLogin()}
-      icon={<FcGoogle size={25} className="mx-1" />}
-    />
+    >
+      <FcGoogle size={25} className="mx-1" />
+      {!isSignUp ? "Sign in with Google" : "Sing up with Google"}
+    </Button>
   );
 };
 

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { productServices } from "../services/productServices";
 
 const ProductContext = createContext({});
 
@@ -18,9 +19,25 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {}, []);
 
+  const addProduct = async (productData) => {
+    try {
+      const response = await productServices.createProduct(productData);
+      if (response && response.success) {
+        setProducts((prevProducts) => {
+          return [...prevProducts, response.newProduct];
+        });
+      } else {
+        throw new Error("Error from addProduct response", response.error);
+      }
+    } catch (error) {
+      console.log("Error from ProductProvider.addProduct: ", error);
+    }
+  };
+
   const productContextValue = {
     products,
     product,
+    addProduct,
     count,
   };
 

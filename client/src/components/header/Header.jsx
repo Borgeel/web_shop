@@ -42,10 +42,11 @@ const Header = () => {
         <SearchBar />
         {user && (
           <Button
-            btnClass="bg-blue-600 text-white py-2 px-4 hover:bg-blue-700 active:bg-blue-800"
+            className="bg-blue-600 text-white py-2 px-4 hover:bg-blue-700 active:bg-blue-800"
             onClick={() => toggleAddItem()}
-            btnTxt="List product"
-          />
+          >
+            List product
+          </Button>
         )}
       </div>
       {isAddItemOpen && <AddProduct onClose={closeAddItem} />}

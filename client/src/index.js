@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { BrowserRouter } from "react-router-dom";
 import { ProductProvider } from "./contexts/ProductContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LoadingProvider } from "./contexts/LoadingContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,9 +15,11 @@ root.render(
     <React.StrictMode>
       <BrowserRouter>
         <AuthProvider>
-          <ProductProvider>
-            <App />
-          </ProductProvider>
+          <LoadingProvider>
+            <ProductProvider>
+              <App />
+            </ProductProvider>
+          </LoadingProvider>
         </AuthProvider>
       </BrowserRouter>
     </React.StrictMode>

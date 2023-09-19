@@ -20,22 +20,19 @@ const Navbar = () => {
         </>
       ) : (
         <>
-          <NavItem action="Sign up" />
-          <NavItem action="Sign In" />
+          <NavItem> Sign in </NavItem>
+          <NavItem> Sign up </NavItem>
         </>
       )}
     </nav>
   );
 };
 
-const NavItem = ({ action }) => {
+const NavItem = ({ children }) => {
   return (
-    <Link to="/auth">
-      <Button
-        btnTxt={action}
-        btnClass="px-4 py-2 text-white hover:text-blue-400 relative"
-      />
-    </Link>
+    <Button className="px-4 py-2 text-white hover:text-blue-400 relative">
+      <Link to="/auth">{children}</Link>
+    </Button>
   );
 };
 

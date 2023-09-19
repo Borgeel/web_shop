@@ -7,7 +7,8 @@ import ProductList from "../components/product/ProductList";
 import Loader from "../components/common/Loader";
 
 const Home = () => {
-  const { products, setProducts } = useProductContext();
+  const { products, setProducts, isLoading, setIsLoading } =
+    useProductContext();
 
   return (
     <div className="flex flex-col min-h-screen">

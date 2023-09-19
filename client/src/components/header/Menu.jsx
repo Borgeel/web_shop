@@ -26,11 +26,11 @@ const Menu = ({ isOpen, onClose }) => {
             <MenuItem to="/products" text="Your items" onClose={onClose} />
             <MenuItem to="/settings" text="Settings" onClose={onClose} />
             <Button
-              btnClass="text-blue-500 hover:text-blue-700 transition-all duration-200 ease-in-out"
+              className="text-blue-500 hover:text-blue-700 transition-all duration-200 ease-in-out"
               onClick={() => logoutHandler()}
-              icon={<BiLogOut size={25} />}
-            />
-            {/* Add more menu items as needed */}
+            >
+              <BiLogOut size={25} />
+            </Button>
           </ul>
         </div>
       )}

@@ -1,0 +1,12 @@
+- You are JS developer
+- You are using ReactJS
+- You are separating concerns
+- You are trying to avoid unecessary rerendering
+- You are using Tailwind
+
+- You are building a loading button functionality with a react-loader-spinner ( <RotatingLines /> )
+- You have only one reusable Button component which will be used everywhere in the App
+- Only Buttons which handle server requests will have a loader within them
+- The Button should be disabled and only the loader should show within the button until a response from server
+
+Generate code for this and explain it in detail step by step

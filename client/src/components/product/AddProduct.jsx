@@ -12,26 +12,23 @@ const initialState = {
 };
 
 const AddProduct = ({ onClose }) => {
-  const { setProducts } = useProductContext();
+  const { addProduct } = useProductContext();
   const [formData, setFormData] = useState(initialState);
   const modalRef = useRef(null);
   useCloseModal(modalRef, onClose);
 
-  // const submitHandler = async (e) => {
-  //   e.preventDefault();
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await addProduct(formData);
+      setFormData(initialState);
+      onClose();
+    } catch (error) {
+      console.log("Error from AddProduct.submitHandler: ", error);
+    }
+  };
 
-  //   try {
-  //     const data = await addProduct(formData);
-
-  //     setFormData(initialState);
-  //     setProducts((prevState) => [...prevState, data]);
-  //     onClose();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const changeHandler = (e) => {
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -39,23 +36,24 @@ const AddProduct = ({ onClose }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div ref={modalRef} className="bg-white p-4 rounded shadow-md w-96">
         <h2 className="text-xl mb-4 text-black">Add Product</h2>
-        <form onSubmit>
+        <form onSubmit={submitHandler}>
           <div className="mb-4">
             <Input
               name="name"
               type="text"
-              changeHandler={changeHandler}
-              labelText="Item name: "
-              labelClass="block mb-1"
-              inputClass="text-black  w-full px-3 py-2 border rounded"
-              placeHolder="Enter product name"
+              value={formData.name}
+              onChange={onChange}
+              labelText="Item name:"
+              placeholder="Enter product name"
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Item Image</label>
-            <input
+            <Input
+              name="image"
               type="text"
-              className="w-full px-3 py-2 border rounded"
+              value={formData.image}
+              onChange={onChange}
+              labelText="Item Image:"
               placeholder="Enter item image URL"
             />
           </div>
@@ -63,30 +61,26 @@ const AddProduct = ({ onClose }) => {
             <Input
               name="description"
               type="text"
-              changeHandler={changeHandler}
-              labelText="Enter product descriptionPrice: "
-              labelClass="block mb-1"
-              inputClass="text-black  w-full px-3 py-2 border rounded"
-              placeHolder="Enter product description"
-              txtarea={true}
+              value={formData.description}
+              onChange={onChange}
+              labelText="Item Description:"
+              placeholder="Enter product description"
+              isTextarea={true}
             />
           </div>
           <div className="mb-4">
             <Input
               name="price"
               type="number"
-              changeHandler={changeHandler}
-              labelText="Price: "
-              labelClass="block mb-1"
-              inputClass="text-black  w-full px-3 py-2 border rounded"
-              placeHolder="Enter product price"
+              value={formData.price}
+              onChange={onChange}
+              labelText="Price:"
+              placeholder="Enter product price"
             />
           </div>
-          <Button
-            type="submit"
-            btnClass="bg-blue-500 text-white py-2 px-4"
-            btnTxt="Add Item"
-          />
+          <Button type="submit" className="bg-blue-500 text-white py-2 px-4">
+            Add Item
+          </Button>
         </form>
       </div>
     </div>
