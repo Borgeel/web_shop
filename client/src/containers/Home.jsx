@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-
 import { Header, Footer } from "../components";
 
 import { useProductContext } from "../contexts/ProductContext";

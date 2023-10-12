@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import User from "../models/user.js";
+import user from "../models/user.js";
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -8,8 +9,10 @@ const jwtOptions = {
 };
 
 const strategy = new JwtStrategy(jwtOptions, async (payload, done) => {
+  const { userData } = payload;
+  console.log(userData);
   try {
-    const user = await User.findById(payload.id);
+    const user = await User.findById(userData._id);
     console.log(user);
     if (user) {
       console.log(user);

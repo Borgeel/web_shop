@@ -1,7 +1,7 @@
 const API = process.env.REACT_APP_API_BASE_URL;
 
 export const requestServices = {
-  request: async (url, method, body = {}, authHeaders = {}) => {
+  request: async (url, method, body, authHeaders = {}) => {
     try {
       const response = await fetch(`${API}${url}`, {
         headers: {
@@ -26,7 +26,7 @@ export const requestServices = {
   requestWithAuth: async (url, method, body = {}) => {
     try {
       const authHeaders = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `${localStorage.getItem("token")}`,
       };
       const response = await requestServices.request(
         url,

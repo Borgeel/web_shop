@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useProductContext } from "../../contexts/ProductContext";
 import Input from "../common/Input";
 import useCloseModal from "../../hooks/useCloseModal";

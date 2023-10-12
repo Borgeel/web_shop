@@ -17,7 +17,21 @@ export const ProductProvider = ({ children }) => {
   const [product, setProduct] = useState({});
   const [count, setCount] = useState(1);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await productServices.getAllProducts();
+
+        setProducts(() => [...products, response.products]);
+
+        console.log(response);
+      } catch (error) {
+        console.log("Error in ProductContext.getProducts", error);
+      }
+    };
+
+    getProducts();
+  }, []);
 
   const addProduct = async (productData) => {
     try {

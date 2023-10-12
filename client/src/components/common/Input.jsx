@@ -28,7 +28,7 @@ const Input = ({
         type={type}
         onChange={onChange}
         autoFocus={autoFocus}
-        className={inputClass}
+        className={`p-1 text-black ${inputClass}`}
         placeholder={placeholder}
         {...restProps}
       />

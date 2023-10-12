@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const productSchema = mongoose.Schema({
-  title: {
+  name: {
     type: String,
     required: true,
     trim: true,
@@ -17,17 +17,17 @@ const productSchema = mongoose.Schema({
   },
   category: {
     type: String,
-    required: true,
+    // required: true,
   },
   condition: {
     type: String,
     enum: ["New", "Used", "Refurbished", "Open Box"],
-    required: true,
+    // required: true,
   },
   seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    // required: true,
   },
   location: String,
   imageUrl: String,

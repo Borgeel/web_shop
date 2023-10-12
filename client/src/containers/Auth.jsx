@@ -6,7 +6,6 @@ import { useAuthContext } from "../contexts/AuthContext";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 import GoogleButton from "../components/common/GoogleButton";
-import { useLoading } from "../contexts/LoadingContext";
 import { uniqueBtnId } from "../utils/getId";
 
 const initialState = {
